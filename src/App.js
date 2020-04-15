@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import MediaQuery from 'react-responsive';
+import PCLayout from "./pages/pc_layout";
+import MobileLayout from './pages/mobile_layout';
+import './assets/styles/pc.less';
+import './assets/styles/mobile.less';
+import 'antd/dist/antd.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <MediaQuery query='(min-device-width: 1224px)'>
+          <PCLayout>
+            {/* <Switch>
+              <Route path="/common" render={() => (
+                <Route path="/common/detail/:id" component={Detail} />
+              )} />
+              <Route path="/search" component={Search} />
+              <Route path="/" render={() => (
+                <Switch>
+                  <Route path="/home" component={Home} />
+                  <Redirect to="/home" />
+                </Switch>
+              )} />
+            </Switch> */}
+          </PCLayout>
+        </MediaQuery>
+        <MediaQuery query='(max-device-width: 1224px)'>
+          <MobileLayout />
+        </MediaQuery>
+      </Router>
+    );
+  }
 }
 
 export default App;
